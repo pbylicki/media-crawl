@@ -7,7 +7,11 @@ class GazetaSpider(scrapy.Spider):
 
     name = "GazetaPl"
     allowed_domains = ["gazeta.pl"]
-    start_urls = ["http://wiadomosci.gazeta.pl/wiadomosci/0,114883.html#TRNavSST"]
+    start_urls = [
+        "http://wiadomosci.gazeta.pl/wiadomosci/0,114883.html#TRNavSST",  # Polska
+        "http://wiadomosci.gazeta.pl/wiadomosci/0,114884.html#TRNavSST",  # Polityka
+        "http://wiadomosci.gazeta.pl/wiadomosci/0,114881.html#TRNavSST"   # Swiat
+    ]
 
     def parse(self, response):
         for href in response.xpath('//div[@class="pagination"]/a/@href'):
