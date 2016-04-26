@@ -26,7 +26,9 @@ class GazetaSpider(scrapy.Spider):
         item["title"] = response.xpath('//div[@class="holder_top"]/h1/text()').extract()[0]
         item["date"] = self.extract_date(response.xpath('//div[@id="gazeta_article_date"]/text()').extract()[0])
         item["link"] = response.url
-        item["text"] = self.extract_text("".join(response.xpath('//div[@id="artykul"]/.').extract()))
+        lead = self.extract_text("".join(response.xpath('//div[@id="gazeta_article_lead"]/.').extract()))
+        text = self.extract_text("".join(response.xpath('//div[@id="artykul"]/.').extract()))
+        item["text"] = lead + " " + text
         yield item
 
     def extract_date(self, date_string):

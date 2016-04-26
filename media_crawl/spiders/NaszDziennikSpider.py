@@ -27,8 +27,8 @@ class NaszDziennikSpider(scrapy.Spider):
         item["title"] = response.xpath('//div[@id="article"]/h1/text()').extract()[0]
         item["date"] = response.xpath('//div[@id="article-date"]/text()').extract()[0].strip('\n').strip()
         item["link"] = response.url
-        lead = self.extract_text("".join(response.xpath('//div[@id="article-subtitle"]/.').extract()))
-        text = self.extract_text("".join(response.xpath('//div[@id="article-content"]/.').extract()))
+        lead = self.extract_text(" ".join(response.xpath('//div[@id="article-subtitle"]/p/text()').extract()))
+        text = self.extract_text(" ".join(response.xpath('//div[@id="article-content"]/p/text()').extract()))
         item["text"] = lead + " " + text
         if item["text"]:
             yield item
